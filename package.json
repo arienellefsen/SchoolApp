@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/arienellefsen/appBackend.git"
+        "url": "https://github.com/arienellefsen/SchoolApp.git"
     },
     "author": "",
     "license": "ISC",
