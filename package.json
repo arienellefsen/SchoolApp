@@ -1,0 +1,31 @@
+{
+    "name": "prj1",
+    "version": "1.0.0",
+    "description": "School behavior web app",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "mocha --recursive"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arienellefsen/appBackend.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bluebird": "^3.5.0",
+        "body-parser": "^1.17.2",
+        "cors": "^2.8.3",
+        "express": "^4.15.3",
+        "mongodb": "^2.2.29",
+        "mongoose": "4.10.0"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "chai-http": "^3.0.0",
+        "jshint": "^2.9.4",
+        "jshint-stylish": "^2.2.1",
+        "mocha": "^4.1.0"
+    }
+}
