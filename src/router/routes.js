@@ -8,8 +8,9 @@ var Unidades = require('../models/Unidades.js');
 var Alunos = require('../models/Alunos.js');
 var Pisicologo = require('../models/Psicologo.js');
 var Diretor = require('../models/Diretor.js');
+var Ocorrido = require('../models/Ocorridos.js');
 
-// Defined get data(index or listing) route
+//Defined get data(index or listing) route
 routers.route('/').get(function(req, res) {
     res.send('test router');
 });
@@ -112,6 +113,30 @@ routers.route('/adicionarDiretor').post(function(req, res) {
         });
 });
 
+
+//Ocorridos
+routers.route('/ocorridos').post(function(req, res) {
+    Ocorrido.find({ ocorrido: 'test' },
+        function(err, docs) {
+            if (docs.length) {
+                console.log('email already exists');
+            } else {
+                Ocorrido.create({
+                    ocorrido: 'ocorrido',
+                    data: 'data',
+                    time: 'time',
+                    tipo: 'tipo'
+                }, function(err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send("Ocorrido saved");
+                    }
+                });
+            }
+        });
+});
+
 //Save user AFFIRMATION
 // New note creation via POST route
 routers.route('/addSchool').post(function(req, res) {
@@ -145,6 +170,5 @@ routers.route('/addSchool').post(function(req, res) {
         }
     });
 });
-
 
 module.exports = routers;
