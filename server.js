@@ -5,9 +5,12 @@ var bodyParser = require('body-parser');
 var port = 3000;
 var cors = require('cors');
 
+var MONGODB_URI = 'mongodb://<dbuser>:<dbpassword>@ds259250.mlab.com:59250/heroku_2l8tv4vc';
+
+
 // Mongoose connection with mongodb
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost:27017/SchoolPrj1')
+mongoose.connect(MONGODB_URI)
     .then(() => { // if all is ok we will be here
         console.log('Start');
     })
