@@ -10,10 +10,10 @@ var Pisicologo = require('../models/Psicologo.js');
 var Diretor = require('../models/Diretor.js');
 var Ocorrido = require('../models/Ocorridos.js');
 
-//Defined get data(index or listing) route
-routers.route('/').get(function(req, res) {
-    res.send('test router');
-});
+// //Defined get data(index or listing) route
+// routers.route('/').get(function(req, res) {
+//     res.send('test router');
+// });
 
 //Save school
 //Verify if user doesn't exist
