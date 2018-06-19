@@ -10,7 +10,8 @@ var Alunos = new Schema({
     responsavel: String,
     serie: String,
     unidade: String,
-    foto: String
+    foto: String,
+    schoolAppId: String
 });
 
 module.exports = mongoose.model('Alunos', Alunos);

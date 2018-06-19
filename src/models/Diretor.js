@@ -6,7 +6,8 @@ var Diretor = new Schema({
     nome: String,
     email: String,
     telefone: String,
-    unidade: String
+    unidade: String,
+    schoolAppId: String
 });
 
 module.exports = mongoose.model('Diretor', Diretor);

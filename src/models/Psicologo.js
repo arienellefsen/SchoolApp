@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var Pisicologo = new Schema({
     nome: String,
     email: String,
-    telefone: String
+    telefone: String,
+    schoolAppId: String
 });
 
 module.exports = mongoose.model('Pisicologo', Pisicologo);

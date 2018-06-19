@@ -7,6 +7,9 @@ var Unidades = new mongoose.Schema({
     endereco: String,
     email: String,
     phone: String,
+    schoolAppId: String
 });
+
+//criar um relation com o school app table
 
 module.exports = mongoose.model("Unidades", Unidades);

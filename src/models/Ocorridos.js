@@ -6,7 +6,8 @@ var Ocorridos = new Schema({
     ocorrido: String,
     data: String,
     time: String,
-    tipo: String
+    tipo: String,
+    schoolAppId: String
 });
 
 module.exports = mongoose.model('Ocorridos', Ocorridos);
