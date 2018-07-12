@@ -2,7 +2,16 @@ var express = require('express');
 var app = express();
 var routers = express.Router();
 
-// Require Item model in our routes module
+//Check if user is authenticated
+var loggedin = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        next()
+    } else {
+        res.redirect('/login')
+    }
+}
+
+//Declaring Models to routers 
 var EscolaApp = require('../models/EscolaApp');
 var Unidades = require('../models/Unidades.js');
 var Alunos = require('../models/Alunos.js');
@@ -10,15 +19,16 @@ var Pisicologo = require('../models/Psicologo.js');
 var Diretor = require('../models/Diretor.js');
 var Ocorrido = require('../models/Ocorridos.js');
 
-//Defined get data(index or listing) route
-routers.route('/').get(function(req, res) {
-    res.send('test router');
+//Router initial page
+routers.get('/', (req, res) => {
+    res.send('test router ariene');
 });
 
 // ********* - REST API Escola **************** 
 
 //1- Criar Escola
-routers.route('/criar').post(function(req, res) {
+
+routers.post('/criar', (req, res) => {
     EscolaApp.find({ schoolName: 'test' },
         function(err, docs) {
             if (docs.length) {
@@ -26,10 +36,10 @@ routers.route('/criar').post(function(req, res) {
 
             } else {
                 EscolaApp.create({
-                    schoolName: 'name1',
-                    email: 'email1',
-                    schoolLogo: 'logo1',
-                    endereco: 'endereco1'
+                    schoolName: 'name2',
+                    email: 'email2',
+                    schoolLogo: 'logo2',
+                    endereco: 'endereco2'
                 }, function(err) {
                     if (err) {
                         console.log(err);
@@ -41,6 +51,7 @@ routers.route('/criar').post(function(req, res) {
         });
 });
 
+
 //2 - Ler todas - Escola
 routers.get('/escolas', (req, res) => {
     EscolaApp.find({})
@@ -50,6 +61,25 @@ routers.get('/escolas', (req, res) => {
         .catch((err) => {
             res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
         });
+});
+
+routers.get('/login', (req, res, next) => {
+    res.render('index');
+});
+
+routers.get('/signup', (req, res, next) => {
+    res.render('signup');
+});
+
+routers.get('/profile', loggedin, (req, res, next) => {
+    res.render('profile', {
+        user: req.user
+    })
+});
+
+routers.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
 });
 
 //3 - Ler uma Escola
@@ -147,10 +177,9 @@ routers.delete('/:id', (req, res) => {
         });
 });
 
-// ********* - REST API Alunos **************** 
-
 //1 - Criar Aluno
-routers.route('/criar-ocorrido').post(function(req, res) {
+
+routers.post('/criar-ocorrido', (req, res) => {
     Alunos.find({ rg: '1234' },
         function(err, docs) {
             if (docs.length) {
@@ -186,7 +215,6 @@ routers.get('/ocorrido', (req, res) => {
             res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
         });
 });
-
 
 //3 - Ler uma Escola
 routers.get('/ocorrido/:id', (req, res) => {
@@ -300,9 +328,8 @@ routers.delete('/ocorrido/:id', (req, res) => {
 });
 
 // ********* - REST API Pisicologo **************** 
-
 //Pisicologo
-routers.route('/adicionar-psicologo').post(function(req, res) {
+routers.post('/adicionar-psicologo', (req, res) => {
     Pisicologo.find({ tel: '1234' },
         function(err, docs) {
             if (docs.length) {
@@ -418,7 +445,7 @@ routers.delete('/psicologo/:id', (req, res) => {
 // ********* - REST API Diretor **************** 
 
 //1 - Adicionar Diretor
-routers.route('/adicionar-diretor').post(function(req, res) {
+routers.post('/adicionar-diretor', (req, res) => {
     Diretor.find({ email: 'test@test.com' },
         function(err, docs) {
             if (docs.length) {
@@ -539,7 +566,7 @@ routers.delete('/diretor/:id', (req, res) => {
 // ********* - REST API Unidades **************** 
 
 //1 - Adicionar Unidade
-routers.route('/adicionar-unidade').post(function(req, res) {
+routers.post('/adicionar-unidade', (req, res) => {
     Unidades.find({ nomeUnidade: 'test@test.com' },
         function(err, docs) {
             if (docs.length) {
@@ -669,17 +696,17 @@ routers.delete('/unidade/:id', (req, res) => {
 
 
 //Ocorridos
-routers.route('/ocorridos').post(function(req, res) {
+routers.post('/ocorridos', (req, res) => {
     Ocorrido.find({ ocorrido: 'test' },
         function(err, docs) {
             if (docs.length) {
                 console.log('email already exists');
             } else {
                 Ocorrido.create({
-                    ocorrido: 'ocorrido',
-                    data: 'data',
-                    time: 'time',
-                    tipo: 'tipo'
+                    ocorrido: 'ocorrido2',
+                    data: 'data2',
+                    time: 'time2',
+                    tipo: 'tipo2'
                 }, function(err) {
                     if (err) {
                         console.log(err);
@@ -693,7 +720,7 @@ routers.route('/ocorridos').post(function(req, res) {
 
 //Save user AFFIRMATION
 // New note creation via POST route
-routers.route('/addSchool').post(function(req, res) {
+routers.post('/addSchool', (req, res) => {
     var newUnidade = new Unidades({ nomeUnidade: 'unidade1' });
     console.log('unidade');
     // Save the new note to mongoose
